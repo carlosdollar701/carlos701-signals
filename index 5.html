@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>توصيات كارلوس 701</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffffff;
+            color: #111;
+            text-align: center;
+            padding: 30px;
+        }
+        .box {
+            border: 2px solid #111;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="login-box">
+        <h2>أدخل كلمة السر</h2>
+        <input type="password" id="password" placeholder="كلمة السر">
+        <button onclick="checkPassword()">دخول</button>
+    </div>
+
+    <div class="box hidden" id="content-box">
+        <h2>توصية التداول</h2>
+        <p id="signal">جاري التحليل...</p>
+        <button onclick="generateSignal()">تحديث التوصية</button>
+        <a href="https://instagram.com/hussein.a42" target="_blank">تواصل معنا على إنستغرام</a>
+    </div>
+
+    <script>
+        function checkPassword() {
+            var pass = document.getElementById('password').value;
+            if (pass === "كارلوس ٧٠١") {
+                document.getElementById('login-box').classList.add('hidden');
+                document.getElementById('content-box').classList.remove('hidden');
+                generateSignal();
+            } else {
+                alert("كلمة السر غير صحيحة");
+            }
+        }
+
+        function generateSignal() {
+            const now = new Date();
+            const minute = now.getMinutes();
+            const hour = now.getHours();
+            const direction = Math.random() > 0.5 ? "صعود (CALL)" : "هبوط (PUT)";
+            const timeString = `الساعة ${hour}:${minute < 10 ? "0" + minute : minute}`;
+
+            document.getElementById('signal').innerText = 
+                `التوصية: ${direction}
+مدة الصفقة: دقيقة واحدة
+الوقت: ${timeString}`;
+        }
+    </script>
+</body>
+</html>
