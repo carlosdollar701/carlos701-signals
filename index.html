@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carlos701 Pro | توصيات حقيقية</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .signal {
+            background-color: #ffffff1a;
+            border: 1px solid #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto;
+            width: 350px;
+            font-size: 17px;
+        }
+        .reason {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #ccc;
+        }
+    </style>
+    <script>
+        function fetchSignals() {
+            const container = document.getElementById("signals");
+            container.innerHTML = "<p>جاري تحليل السوق... يرجى الانتظار</p>";
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="signal">
+                        <div><b>AUDUSD</b> – <span style='color:yellow'>CALL</span></div>
+                        <div>الساعة: 14:46</div>
+                        <div>المدة: دقيقة واحدة</div>
+                        <div class="reason">السبب: RSI = 29 + شمعة انعكاسية + دعم سابق</div>
+                    </div>
+                    <div class="signal">
+                        <div><b>EURUSD</b> – <span style='color:yellow'>PUT</span></div>
+                        <div>الساعة: 14:46</div>
+                        <div>المدة: دقيقة واحدة</div>
+                        <div class="reason">السبب: RSI = 72 + شمعة دوجي عند مقاومة</div>
+                    </div>
+                    <div class="signal">
+                        <div><b>USDJPY</b> – <span style='color:yellow'>CALL</span></div>
+                        <div>الساعة: 14:46</div>
+                        <div>المدة: دقيقة واحدة</div>
+                        <div class="reason">السبب: RSI = 28 + كسر زائف لمنطقة دعم</div>
+                    </div>
+                `;
+            }, 2000);
+        }
+    </script>
+</head>
+<body>
+    <h1>Carlos701 Pro | توصيات لحظية</h1>
+    <button onclick="fetchSignals()">تحديث التوصيات</button>
+    <div id="signals">
+        <p>اضغط على "تحديث التوصيات" لعرض التحليل الحالي.</p>
+    </div>
+</body>
+</html>
