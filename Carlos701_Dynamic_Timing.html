@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Carlos701 Pro – توصية ديناميكية</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #1f4037, #99f2c8);
+            color: white;
+            font-family: Tahoma, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .login {
+            margin-top: 100px;
+        }
+        .box {
+            background-color: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+            width: 350px;
+            font-size: 18px;
+        }
+        .reason {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffcc00;
+            color: #000;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #eee;
+        }
+        a {
+            color: #0ff;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        function checkPassword() {
+            var pw = document.getElementById("pw").value;
+            if (pw === "701carlos") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("content").style.display = "block";
+                generateSignal();
+            } else {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
+        function generateSignal() {
+            const pairs = ["EURUSD", "USDJPY", "GBPUSD", "AUDUSD", "NZDJPY"];
+            const directions = ["CALL", "PUT"];
+            const reasons = [
+                "RSI = 27 + شمعة دوجي فوق دعم صاعد",
+                "RSI = 73 + شمعة انعكاس عند مقاومة",
+                "RSI = 29 + كسر كاذب أسفل دعم",
+                "RSI = 69 + ابتلاع بيعي أسفل ترند هابط",
+                "RSI = 25 + شمعة هامر قوية بعد هبوط"
+            ];
+            const pair = pairs[Math.floor(Math.random() * pairs.length)];
+            const direction = directions[Math.floor(Math.random() * directions.length)];
+            const reason = reasons[Math.floor(Math.random() * reasons.length)];
+
+            const now = new Date();
+            const addMin = Math.floor(Math.random() * 3) + 3; // بين 3 و5 دقايق
+            now.setMinutes(now.getMinutes() + addMin);
+            const timeStr = now.toTimeString().slice(0,5);
+
+            document.getElementById("signalBox").innerHTML = `
+                <div class="box">
+                    <b>${pair}</b> – <span style='color:yellow'>${direction}</span><br>
+                    وقت التنفيذ: <b>${timeStr}</b><br>
+                    المدة: دقيقة واحدة
+                    <div class="reason">السبب: ${reason}</div>
+                </div>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <div id="login" class="login">
+        <h2>أدخل كلمة المرور للدخول</h2>
+        <input type="password" id="pw" />
+        <br><br>
+        <button onclick="checkPassword()">دخول</button>
+    </div>
+
+    <div id="content" style="display:none">
+        <h1>Carlos701 Pro | توصية حقيقية بتوقيتك</h1>
+        <button onclick="generateSignal()">تحديث التوصية</button>
+        <div id="signalBox"></div>
+        <div class="footer">
+            للتواصل عبر إنستغرام: <a href="https://instagram.com/hussein.a42" target="_blank">@hussein.a42</a>
+        </div>
+    </div>
+</body>
+</html>
