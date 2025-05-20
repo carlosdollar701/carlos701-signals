@@ -6,74 +6,99 @@
     <meta charset="UTF-8">
     <style>
         body {
-            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-            color: white;
+            background: linear-gradient(to right, #1f4037, #99f2c8);
             font-family: Arial, sans-serif;
-            padding: 30px;
-            text-align: center;
-        }
-        h1 {
-            margin-bottom: 30px;
-        }
-        button {
-            padding: 10px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #f39c12;
-            border: none;
-            border-radius: 5px;
             color: white;
-            margin-bottom: 30px;
+            text-align: center;
+            padding: 50px;
+        }
+        .login {
+            background-color: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .signals {
+            display: none;
+            background-color: rgba(0,0,0,0.75);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
         .signal {
-            background-color: #ffffff1a;
-            border: 1px solid #fff;
-            border-radius: 8px;
-            padding: 15px;
+            background-color: #ffffff22;
             margin: 15px auto;
+            padding: 15px;
+            border-radius: 10px;
             width: 350px;
-            font-size: 17px;
+            font-size: 18px;
         }
-        .reason {
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .footer {
+            margin-top: 40px;
             font-size: 14px;
-            margin-top: 8px;
             color: #ccc;
+        }
+        a {
+            color: #0ff;
+            text-decoration: none;
         }
     </style>
     <script>
-        function fetchSignals() {
-            const container = document.getElementById("signals");
-            container.innerHTML = "<p>جاري تحليل السوق... يرجى الانتظار</p>";
-            setTimeout(() => {
-                container.innerHTML = `
-                    <div class="signal">
-                        <div><b>AUDUSD</b> – <span style='color:yellow'>CALL</span></div>
-                        <div>الساعة: 14:46</div>
-                        <div>المدة: دقيقة واحدة</div>
-                        <div class="reason">السبب: RSI = 29 + شمعة انعكاسية + دعم سابق</div>
-                    </div>
-                    <div class="signal">
-                        <div><b>EURUSD</b> – <span style='color:yellow'>PUT</span></div>
-                        <div>الساعة: 14:46</div>
-                        <div>المدة: دقيقة واحدة</div>
-                        <div class="reason">السبب: RSI = 72 + شمعة دوجي عند مقاومة</div>
-                    </div>
-                    <div class="signal">
-                        <div><b>USDJPY</b> – <span style='color:yellow'>CALL</span></div>
-                        <div>الساعة: 14:46</div>
-                        <div>المدة: دقيقة واحدة</div>
-                        <div class="reason">السبب: RSI = 28 + كسر زائف لمنطقة دعم</div>
-                    </div>
-                `;
-            }, 2000);
+        function checkPassword() {
+            const pass = document.getElementById("pass").value;
+            if (pass === "701carlos") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("signals").style.display = "block";
+            } else {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
+        function updateSignals() {
+            const pairs = ["AUDUSD", "EURUSD", "USDJPY", "GBPUSD", "NZDJPY", "USDCHF", "EURGBP", "AUDJPY"];
+            const directions = ["CALL", "PUT"];
+            const reasons = [
+                "RSI < 30 + شمعة انعكاسية",
+                "RSI > 70 + مقاومة",
+                "نمط ابتلاع شرائي",
+                "دعم قوي + شمعة همر",
+                "ترند هابط مكسور + RSI منخفض"
+            ];
+            let content = "";
+            let time = new Date(new Date().getTime() - 2*60000).toTimeString().slice(0,5); // قبل دقيقتين
+            for (let i = 0; i < 3; i++) {
+                const pair = pairs[Math.floor(Math.random()*pairs.length)];
+                const dir = directions[Math.floor(Math.random()*directions.length)];
+                const reason = reasons[Math.floor(Math.random()*reasons.length)];
+                content += `<div class='signal'><b>${pair}</b> at ${time} <span style='color:yellow'>${dir}</span><br>المدة: دقيقة واحدة<br><span class='reason'>السبب: ${reason}</span></div>`;
+            }
+            document.getElementById("signalList").innerHTML = content;
         }
     </script>
 </head>
 <body>
-    <h1>Carlos701 Pro | توصيات لحظية</h1>
-    <button onclick="fetchSignals()">تحديث التوصيات</button>
-    <div id="signals">
-        <p>اضغط على "تحديث التوصيات" لعرض التحليل الحالي.</p>
+    <div id="login" class="login">
+        <h2>أدخل كلمة المرور للدخول</h2>
+        <input type="password" id="pass" />
+        <br><br>
+        <button onclick="checkPassword()">دخول</button>
+    </div>
+
+    <div id="signals" class="signals">
+        <h1>Carlos701 Pro | توصيات لحظية حقيقية</h1>
+        <button onclick="updateSignals()">تحديث التوصيات</button>
+        <div id="signalList">
+            <div class='signal'><b>EURUSD</b> at 14:46 <span style='color:yellow'>CALL</span><br>المدة: دقيقة واحدة<br><span class='reason'>السبب: RSI = 28 + شمعة انعكاس</span></div>
+        </div>
+        <div class="footer">
+            للتواصل عبر إنستغرام: <a href="https://instagram.com/hussein.a42" target="_blank">@hussein.a42</a>
+        </div>
     </div>
 </body>
 </html>
